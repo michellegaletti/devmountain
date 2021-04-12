@@ -1,0 +1,210 @@
+* {
+  margin: 0;
+}
+
+.logo {
+  max-width: 20%;
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-weight: 400;
+  font-size: 48px;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.primaryNav {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-left: 10%;
+  margin-right: 2%;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  padding-top: 2%;
+  font-size: 12px;
+}
+
+.primaryNav * {
+  display: inline;
+}
+
+.replay {
+  border: 2px solid white;
+  max-width: 10%;
+  text-align: center;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  position: relative;
+  top: 60%;
+  left: 55%;
+}
+
+li {
+  margin: 20px;
+}
+
+.mainNav {
+  list-style-type: none;
+  padding: 0;
+}
+
+.secondNav {
+  float: right;
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+.secondNav li {
+  margin: 10px;
+}
+
+.hamburgerMenu {
+  width: 25px;
+  height: 25px;
+}
+
+.highAltitude {
+  background-image: url("https://i.ytimg.com/vi/gjCSJIAKEPM/maxresdefault.jpg");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.flightTest {
+  position: relative;
+  top: 55%;
+  left: 55%;
+  max-width: 25%;
+}
+
+.highText {
+  position: relative;
+  top: 55%;
+  left: 55%;
+  max-width: 35%;
+}
+
+.starlink {
+  background-image: url("https://cdn.mos.cms.futurecdn.net/iAtiTFg8ciyUo9GmNdax8U.jpg");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.recentLaunch {
+  position: relative;
+  top: 75%;
+  left: 5%;
+  max-width: 25%;
+}
+
+.starText {
+  position: relative;
+  top: 75%;
+  left: 5%;
+  max-width: 35%;
+}
+
+#btn2 {
+  top: 80%;
+  left: 5%;
+}
+
+.crew1 {
+  background-image: url("https://cdn.shopify.com/s/files/1/0173/8204/7844/articles/SpaceX_Crew-1_poster_1_2000x.png?v=1595714726");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.crewText {
+  position: relative;
+  top: 65%;
+  left: 10%;
+  max-width: 35%;
+}
+
+.watchText {
+  position: relative;
+  top: 65%;
+  left: 10%;
+  max-width: 35%;
+}
+
+#btn3 {
+  top: 70%;
+  left: 10%;
+}
+
+.dragon {
+  background-image: url("https://s.yimg.com/os/creatr-uploaded-images/2020-05/a6099880-9515-11ea-bfef-79dffb222a11");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dragonText {
+  position: relative;
+  top: 20%;
+  left: 5%;
+  max-width: 35%;
+}
+
+.simulatorText {
+  position: relative;
+  top: 20%;
+  left: 5%;
+  max-width: 35%;
+}
+
+#btn4 {
+  top: 25%;
+  left: 5%;
+}
+
+.footerNav {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  padding-top: 2%;
+  font-size: 11px;
+  list-style-type: none;
+}
+
+.copyright {
+  color: #979797;
+}
