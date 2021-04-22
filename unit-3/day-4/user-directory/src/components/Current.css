@@ -1,0 +1,64 @@
+.currentUser {
+  margin: 0 auto;
+  background-color: white;
+  max-width: 50%;
+  padding-bottom: 2%;
+}
+
+.indexCounter {
+  text-align: right;
+  margin-right: 10%;
+}
+
+.userName {
+  text-align: left;
+  margin-left: 10%;
+  text-decoration: underline;
+  text-decoration-color: #43aadb;
+  padding-bottom: 2%;
+}
+
+.basicInfo {
+  text-align: left;
+  margin-left: 10%;
+  margin-bottom: 5%;
+}
+
+.favMovies {
+  text-align: left;
+  margin-left: 10%;
+}
+
+.btn {
+  background-color: #34a5da;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 25px;
+  display: inline-block;
+}
+
+.centerBtn {
+  text-align: center;
+  margin-top: 2%;
+}
+
+.navBtns {
+  display: flex;
+  justify-content: space-between;
+  max-width: 50%;
+  margin: 0 auto;
+  padding-bottom: 5%;
+}
+
+.navStyle {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: larger;
+  font-weight: 700;
+}
+
+button:active {
+  text-decoration: none;
+}
