@@ -1,0 +1,203 @@
+.App {
+  text-align: left;
+}
+
+.loadingPage {
+  margin-top: 25%;
+  text-align: center;
+}
+
+.title h1 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding-left: 5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin: 0 auto;
+  background-color: #8a9b83;
+  color: white;
+  font-family: "Sansita", sans-serif;
+  letter-spacing: 0.15rem;
+}
+
+.recipeImg {
+  width: 300px;
+  height: 200px;
+}
+
+.recipeCard {
+  width: 325px;
+  margin-bottom: 5%;
+  text-align: center;
+}
+
+.cardTitle {
+  height: 115px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.openRecipes {
+  max-width: 75%;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #8a9b835f;
+}
+
+.modalStyling {
+  background: white;
+  width: 50rem;
+  margin: 0 auto;
+  padding: 2%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100vh - 10rem);
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  position: relative;
+}
+
+.modalCloseBtn {
+  cursor: pointer;
+  top: 1.5rem;
+  right: 1.5rem;
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+}
+
+.searchInput {
+  background: #f1f7ef;
+  border: 1px solid #808e79;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.unclickableBtn {
+  display: none;
+}
+
+.openImg {
+  text-align: center;
+}
+
+.recipesDisplayed {
+  text-align: center;
+}
+
+h2,
+h3 {
+  font-family: "Sansita", sans-serif;
+}
+
+.timeandServe {
+  text-align: center;
+}
+
+button {
+  background-color: #ebf5e7;
+  color: #8a9b83;
+  margin-left: 2%;
+  text-align: center;
+  border: none;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+button:hover {
+  background-color: #5d6858;
+  color: white;
+}
+
+.deleteBtn {
+  background-color: #5d6858;
+  color: white;
+}
+
+.cardBtns {
+  text-align: center;
+}
+
+.main {
+  height: 100vh;
+}
+
+.recipeContent {
+  display: flex;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.recipeListDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+  min-width: 75%;
+  margin-top: 100px;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.searchBar {
+  position: fixed;
+  left: 75%;
+  width: 100%;
+  height: 50px;
+  top: 2%;
+}
+
+.savedRecipes {
+  min-width: 300px;
+  background-color: #ebf5e7;
+  padding-top: 5%;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.ingAmountInput {
+  margin-right: 2%;
+  width: 5%;
+  margin-bottom: 1%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
