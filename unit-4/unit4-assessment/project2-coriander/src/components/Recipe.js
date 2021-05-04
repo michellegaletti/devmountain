@@ -38,7 +38,11 @@ class Recipe extends Component {
               X
             </button>
             <div className="openImg">
-              <img src={this.props.recipe.image} alt={this.props.recipe.name} />
+              <img
+                className="recipeImgOpen"
+                src={this.props.recipe.image}
+                alt={this.props.recipe.name}
+              />
 
               <h2>{this.props.recipe.name}</h2>
               <p>

@@ -47,7 +47,7 @@ module.exports = {
         };
         newAllRecipes.push(newRecipe);
       }
-      allRecipes = [...newAllRecipes];
+      allRecipes = newAllRecipes;
       res.status(200).send(allRecipes);
     });
   },
