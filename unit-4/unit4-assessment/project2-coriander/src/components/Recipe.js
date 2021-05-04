@@ -1,5 +1,6 @@
 import { Component } from "react";
 import IngredientList from "./IngredientList";
+import Instructions from "./Instructions";
 import "../App.css";
 import { Modal } from "react-bootstrap";
 
@@ -49,7 +50,7 @@ class Recipe extends Component {
               recipe={this.props.recipe}
               editRecipe={this.props.editRecipe}
             />
-            <p>{this.props.recipe.instructions}</p>
+            <Instructions recipe={this.props.recipe} />
           </Modal.Body>
         </Modal>
       </div>
