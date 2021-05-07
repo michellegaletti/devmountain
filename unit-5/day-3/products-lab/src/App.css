@@ -1,0 +1,20 @@
+.pageTitle {
+  text-align: center;
+}
+
+.products {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.productImg {
+  width: 250px;
+  height: 300px;
+}
+
+.productCard {
+  max-width: 200px;
+  margin-left: 5%;
+  margin-bottom: 5%;
+}
