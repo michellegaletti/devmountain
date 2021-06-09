@@ -15,7 +15,11 @@ import {
   Radio,
   RadioGroup,
 } from "@chakra-ui/react";
-import { IoCreateOutline, IoWineSharp } from "react-icons/io5";
+import {
+  IoCreateOutline,
+  IoWineSharp,
+  IoArrowBackOutline,
+} from "react-icons/io5";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 import { useRouter } from "next/router";
 
@@ -46,9 +50,18 @@ export default function entry() {
   return (
     <>
       <PageLayout />
+      <Icon
+        as={IoArrowBackOutline}
+        onClick={() => router.push("/diary")}
+        mt={24}
+        ml={8}
+        w={6}
+        h={6}
+        color="#420039"
+      />
       {!isEdit ? (
         <>
-          <Stack direction="column" margin="0 auto" mt={24} alignItems="center">
+          <Stack direction="column" margin="0 auto" alignItems="center">
             <Stack direction="row" alignItems="center" justifyContent="center">
               <Text>{entry?.restaurant_name}</Text>
               <Icon as={IoCreateOutline} onClick={() => setIsEdit(true)} />

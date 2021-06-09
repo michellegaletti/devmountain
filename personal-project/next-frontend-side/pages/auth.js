@@ -10,19 +10,22 @@ import {
   Center,
   Text,
   Icon,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { AiOutlineUser } from "react-icons/ai";
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { LockIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 
 const auth = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [show, setShow] = useState(false);
   const { handleLogin, handleRegister } = useContext(UserContext);
   const router = useRouter();
 
   return (
-    <Center maxW="100%" maxH="100vh">
+    <Center maxW="100%" minH="100vh" bgColor={["#F5EDF0", "#F5EDF0", "#FFF"]}>
       <Box
         maxW={["100%", "lg", "lg"]}
         maxH="lg"
@@ -30,12 +33,12 @@ const auth = (props) => {
         borderRadius="md"
         pb={36}
         px={16}
-        transform="translateY(25%)"
-        bgColor="#F5EDF0"
+        borderWidth={0}
+        bgColor={["transparent", "transparent", "#F5EDF0"]}
       >
         <Center>
           <Text py={12} fontSize="4xl" fontWeight="bold" color="#420039">
-            App Name
+            Yumary
           </Text>
         </Center>
         <Center>
@@ -46,7 +49,7 @@ const auth = (props) => {
                 children={<Icon as={AiOutlineUser} color="gray.400" />}
               />
               <Input
-                w={56}
+                w={60}
                 size="md"
                 borderRadius="3xl"
                 bgColor="white"
@@ -62,15 +65,25 @@ const auth = (props) => {
                 children={<LockIcon color="gray.400" />}
               />
               <Input
-                w={56}
+                w={60}
                 size="md"
                 borderRadius="3xl"
                 bgColor="white"
                 isRequired
                 placeholder="password"
+                type={show ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <InputRightElement>
+                <Icon
+                  w={5}
+                  h={5}
+                  color="#420039"
+                  onClick={() => setShow(!show)}
+                  as={show ? IoEyeOutline : IoEyeOffOutline}
+                />
+              </InputRightElement>
             </InputGroup>
           </Stack>
         </Center>

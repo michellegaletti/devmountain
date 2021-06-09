@@ -19,7 +19,9 @@ import {
   IoRestaurantOutline,
   IoCalendarOutline,
   IoWineSharp,
+  IoArrowBackOutline,
 } from "react-icons/io5";
+import { useRouter } from "next/router";
 
 export default function newEntry() {
   const [restaurantName, setRestaurantName] = useState("");
@@ -31,12 +33,22 @@ export default function newEntry() {
   const [customerValue, setCustomerValue] = useState(3);
   const [otherComments, setOtherComments] = useState("");
   const { handleAddEntry } = useContext(EntryContext);
+
+  const router = useRouter();
+
   return (
     <Box maxW="100%">
       <PageLayout />
-      <Text textAlign="center" mt={[24, 4, 4]}>
-        New Entry
-      </Text>
+      <Icon
+        as={IoArrowBackOutline}
+        onClick={() => router.push("/diary")}
+        mt={[24, 4, 4]}
+        ml={[8, 8, 52, 72, 96]}
+        w={6}
+        h={6}
+        color="#420039"
+      />
+      <Text textAlign="center">New Entry</Text>
       <Stack
         direction="column"
         maxW={["75%", "50%", "50%"]}
