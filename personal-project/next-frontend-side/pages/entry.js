@@ -5,15 +5,16 @@ import {
   Stack,
   Text,
   Icon,
+  IconButton,
   Button,
   Tag,
-  Box,
   InputGroup,
   Input,
   InputLeftElement,
   Center,
-  Radio,
-  RadioGroup,
+  FormControl,
+  FormLabel,
+  Flex,
 } from "@chakra-ui/react";
 import {
   IoCreateOutline,
@@ -22,6 +23,9 @@ import {
 } from "react-icons/io5";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 import { useRouter } from "next/router";
+import ReadOnlyRadioComponent from "../components/ReadOnlyRadioComponent";
+import RadioComponent from "../components/RadioComponent";
+import Link from "next/link";
 
 export default function entry() {
   const { entry, handleGetEntry, handleEditEntry } = useContext(EntryContext);
@@ -29,9 +33,10 @@ export default function entry() {
   const router = useRouter();
   const [entryMeal, setEntryMeal] = useState("");
   const [entryDrink, setEntryDrink] = useState("");
-  const [bathroomValue, setBathroomValue] = useState(3);
-  const [customerValue, setCustomerValue] = useState(3);
+  const [bathroomValue, setBathroomValue] = useState("3");
+  const [customerValue, setCustomerValue] = useState("3");
   const [otherComments, setOtherComments] = useState("");
+  const values = ["1", "2", "3", "4", "5"];
 
   useEffect(() => {
     if (router.query.entryId) {
@@ -42,211 +47,54 @@ export default function entry() {
   useEffect(() => {
     setEntryMeal(entry?.entry_meal);
     setEntryDrink(entry?.entry_alcohol);
-    setBathroomValue(entry?.bathroom_experience);
-    setCustomerValue(entry?.customer_experience);
+    setBathroomValue(entry?.bathroom_experience + "");
+    setCustomerValue(entry?.customer_experience + "");
     setOtherComments(entry?.other);
   }, [entry]);
 
   return (
     <>
       <PageLayout />
-      <Icon
-        as={IoArrowBackOutline}
-        onClick={() => router.push("/diary")}
-        mt={24}
-        ml={8}
-        w={6}
-        h={6}
-        color="#420039"
-      />
-      {!isEdit ? (
+      <Link href="/diary">
+        <a>
+          <Icon
+            as={IoArrowBackOutline}
+            mt={[24, 4, null]}
+            ml={[8, 8, 52, 72, 96]}
+            w={6}
+            h={6}
+            color="brand.200"
+          />
+        </a>
+      </Link>
+      {isEdit ? (
         <>
           <Stack direction="column" margin="0 auto" alignItems="center">
             <Stack direction="row" alignItems="center" justifyContent="center">
               <Text>{entry?.restaurant_name}</Text>
-              <Icon as={IoCreateOutline} onClick={() => setIsEdit(true)} />
             </Stack>
             <Stack
               direction="column"
               p={4}
-              bgColor="#F5EDF0"
-              minW={["75%", "50%", "50%"]}
+              bgColor="brand.50"
+              minW={["75%", "50%", null]}
               borderRadius="md"
               spacing={2}
             >
-              <Stack direction="row" justifyContent="space-between" mb={4}>
-                <Stack direction="row">
-                  {entry?.entry_alcohol !== "" ? (
-                    <Icon w={6} h={6} as={IoWineSharp} />
-                  ) : (
-                    <Box></Box>
-                  )}
-                  {entry?.bathroom_experience >= 3 &&
-                  entry?.customer_experience >= 3 ? (
-                    <Icon w={5} h={5} as={FaRegThumbsUp} />
-                  ) : (
-                    <Icon w={5} h={5} as={FaRegThumbsDown} />
-                  )}
-                </Stack>
-                <Tag
-                  bgColor="#AF7A6D"
-                  color="white"
-                  borderRadius="3xl"
-                  boxShadow="1px 1px 2px #888888"
-                >
-                  {entry?.genre_name}
-                </Tag>
-              </Stack>
-              <Text pb={4}>{entry?.entry_date}</Text>
-              <Text color="#420039">What I ate:</Text>
-              <Text bgColor="#FFF" p={2} borderRadius="md">
-                {entry?.entry_meal}
-              </Text>
-              {entry?.entry_drink !== "" ? (
-                <>
-                  <Text color="#420039">What I drank:</Text>
-                  <Text bgColor="#FFF" p={2} borderRadius="md">
-                    {entry?.entry_alcohol}
-                  </Text>
-                </>
-              ) : (
-                <Box></Box>
-              )}
-              <Stack direction="column">
-                <Center>
-                  <Text color="#420039">Bathroom experience: </Text>
-                </Center>
-                <Center>
-                  <RadioGroup value={entry?.bathroom_experience}>
-                    <Stack direction="row" spacing={4}>
-                      <Radio
-                        value={1}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                      <Radio
-                        value={2}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                      <Radio
-                        value={3}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                      <Radio
-                        value={4}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                      <Radio
-                        value={5}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                    </Stack>
-                  </RadioGroup>
-                </Center>
-                <Center>
-                  <Text minW={32} textAlign="center" color="#420039">
-                    1
-                  </Text>
-                  <Text minW={32} textAlign="center" color="#420039">
-                    5
-                  </Text>
-                </Center>
-              </Stack>
-              <Stack direction="column">
-                <Center>
-                  <Text color="#420039">Customer experience: </Text>
-                </Center>
-                <Center>
-                  <RadioGroup value={entry?.customer_experience}>
-                    <Stack direction="row" spacing={4}>
-                      <Radio
-                        value={1}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                      <Radio
-                        value={2}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                      <Radio
-                        value={3}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                      <Radio
-                        value={4}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                      <Radio
-                        value={5}
-                        colorScheme="red"
-                        isReadOnly
-                        bg="white"
-                      />
-                    </Stack>
-                  </RadioGroup>
-                </Center>
-                <Center>
-                  <Text minW={32} textAlign="center" color="#420039">
-                    1
-                  </Text>
-                  <Text minW={32} textAlign="center" color="#420039">
-                    5
-                  </Text>
-                </Center>
-              </Stack>
-              {entry?.entry_other === "" ? (
-                <>
-                  <Text color="#420039">Other comments: </Text>
-                  <Text bgColor="#FFF" p={2} borderRadius="md">
-                    {entry?.other}
-                  </Text>
-                </>
-              ) : (
-                <Box></Box>
-              )}
-            </Stack>
-          </Stack>
-        </>
-      ) : (
-        <>
-          <Stack direction="column" margin="0 auto" mt={24} alignItems="center">
-            <Stack direction="row" alignItems="center" justifyContent="center">
-              <Text>{entry?.restaurant_name}</Text>
-            </Stack>
-            <Stack
-              direction="column"
-              p={4}
-              bgColor="#F5EDF0"
-              minW={["75%", "50%", "50%"]}
-              borderRadius="md"
-              spacing={2}
-            >
-              <Stack direction="row" justifyContent="space-between" pb={4}>
-                <Text>{entry?.entry_date}</Text>
-                <Tag
-                  bgColor="#AF7A6D"
-                  color="white"
-                  borderRadius="3xl"
-                  boxShadow="1px 1px 2px #888888"
-                >
-                  {entry?.genre_name}
-                </Tag>
+              <Stack direction="row" pb={4}>
+                <Flex flex={1}>
+                  <Text>{entry?.entry_date}</Text>
+                </Flex>
+                <Flex flex={1} justifyContent="flex-end">
+                  <Tag
+                    bgColor="brand.100"
+                    color="white"
+                    borderRadius="3xl"
+                    boxShadow="1px 1px 2px #888888"
+                  >
+                    {entry?.genre_name}
+                  </Tag>
+                </Flex>
               </Stack>
               <InputGroup size="md">
                 <Input
@@ -274,54 +122,44 @@ export default function entry() {
                   onChange={(e) => setEntryDrink(e.target.value)}
                 />
               </InputGroup>
-              <Stack direction="column">
+              <FormControl as="fieldset">
                 <Center>
-                  <Text color="#420039">Bathroom experience: </Text>
+                  <FormLabel
+                    as="legend"
+                    color="brand.200"
+                    margin="0 auto"
+                    pb={4}
+                  >
+                    Bathroom experience:
+                  </FormLabel>
                 </Center>
                 <Center>
-                  <RadioGroup onChange={setBathroomValue} value={bathroomValue}>
-                    <Stack direction="row" spacing={4}>
-                      <Radio value={1} colorScheme="red" bg="white" />
-                      <Radio value={2} colorScheme="red" bg="white" />
-                      <Radio value={3} colorScheme="red" bg="white" />
-                      <Radio value={4} colorScheme="red" bg="white" />
-                      <Radio value={5} colorScheme="red" bg="white" />
-                    </Stack>
-                  </RadioGroup>
+                  <RadioComponent
+                    value={bathroomValue}
+                    onChange={setBathroomValue}
+                    valueArr={values}
+                  />
+                </Center>
+              </FormControl>
+              <FormControl as="fieldset">
+                <Center>
+                  <FormLabel
+                    as="legend"
+                    color="brand.200"
+                    margin="0 auto"
+                    pb={4}
+                  >
+                    Customer experience:
+                  </FormLabel>
                 </Center>
                 <Center>
-                  <Text minW={32} textAlign="center" color="#420039">
-                    1
-                  </Text>
-                  <Text minW={32} textAlign="center" color="#420039">
-                    5
-                  </Text>
+                  <RadioComponent
+                    value={customerValue}
+                    onChange={setCustomerValue}
+                    valueArr={values}
+                  />
                 </Center>
-              </Stack>
-              <Stack direction="column">
-                <Center>
-                  <Text color="#420039">Customer experience: </Text>
-                </Center>
-                <Center>
-                  <RadioGroup onChange={setCustomerValue} value={customerValue}>
-                    <Stack direction="row" spacing={4}>
-                      <Radio value={1} colorScheme="red" bg="white" />
-                      <Radio value={2} colorScheme="red" bg="white" />
-                      <Radio value={3} colorScheme="red" bg="white" />
-                      <Radio value={4} colorScheme="red" bg="white" />
-                      <Radio value={5} colorScheme="red" bg="white" />
-                    </Stack>
-                  </RadioGroup>
-                </Center>
-                <Center>
-                  <Text minW={32} textAlign="center" color="#420039">
-                    1
-                  </Text>
-                  <Text minW={32} textAlign="center" color="#420039">
-                    5
-                  </Text>
-                </Center>
-              </Stack>
+              </FormControl>
               <InputGroup size="md">
                 <Input
                   placeholder="other comments..."
@@ -334,15 +172,15 @@ export default function entry() {
             </Stack>
             <Button
               w={36}
-              bgColor="#AF7A6D"
+              bgColor="brand.100"
               color="white"
               borderRadius="3xl"
               onClick={() => {
                 handleEditEntry(
                   entryMeal,
                   entryDrink,
-                  bathroomValue,
-                  customerValue,
+                  Number(bathroomValue),
+                  Number(customerValue),
                   otherComments,
                   entry?.entry_id
                 );
@@ -351,6 +189,109 @@ export default function entry() {
             >
               Save
             </Button>
+          </Stack>
+        </>
+      ) : (
+        <>
+          <Stack direction="column" margin="0 auto" alignItems="center">
+            <Stack direction="row" alignItems="center" justifyContent="center">
+              <Text>{entry?.restaurant_name}</Text>
+              <IconButton
+                icon={<IoCreateOutline />}
+                variant="unstyled"
+                margin="0 auto"
+                onClick={() => setIsEdit(true)}
+              />
+            </Stack>
+            <Stack
+              direction="column"
+              p={4}
+              bgColor="brand.50"
+              minW={["75%", "50%", null]}
+              borderRadius="md"
+              spacing={2}
+            >
+              <Stack direction="row" mb={4}>
+                <Stack direction="row" flex={1} alignItems="center">
+                  {entry?.entry_alcohol ? (
+                    <Icon w={6} h={6} as={IoWineSharp} />
+                  ) : null}
+                  <Flex flex={1}>
+                    {entry?.bathroom_experience >= 3 &&
+                    entry?.customer_experience >= 3 ? (
+                      <Icon w={5} h={5} as={FaRegThumbsUp} />
+                    ) : (
+                      <Icon w={5} h={5} as={FaRegThumbsDown} />
+                    )}
+                  </Flex>
+                </Stack>
+                <Tag
+                  bgColor="brand.100"
+                  color="white"
+                  borderRadius="3xl"
+                  boxShadow="1px 1px 2px #888888"
+                >
+                  {entry?.genre_name}
+                </Tag>
+              </Stack>
+              <Text pb={4}>{entry?.entry_date}</Text>
+              <Text color="brand.200">What I ate:</Text>
+              <Text bgColor="#FFF" p={2} borderRadius="md">
+                {entry?.entry_meal}
+              </Text>
+              {entry?.entry_drink !== "" ? (
+                <>
+                  <Text color="brand.200">What I drank:</Text>
+                  <Text bgColor="#FFF" p={2} borderRadius="md">
+                    {entry?.entry_alcohol}
+                  </Text>
+                </>
+              ) : null}
+              <FormControl as="fieldset">
+                <Center>
+                  <FormLabel
+                    as="legend"
+                    color="brand.200"
+                    margin="0 auto"
+                    pb={4}
+                  >
+                    Bathroom experience:
+                  </FormLabel>
+                </Center>
+                <Center>
+                  <ReadOnlyRadioComponent
+                    value={entry?.bathroom_experience + ""}
+                    valueArr={values}
+                  />
+                </Center>
+              </FormControl>
+              <FormControl as="fieldset">
+                <Center>
+                  <FormLabel
+                    as="legend"
+                    color="brand.200"
+                    margin="0 auto"
+                    pb={4}
+                  >
+                    Customer experience:{" "}
+                  </FormLabel>
+                </Center>
+                <Center>
+                  <ReadOnlyRadioComponent
+                    value={entry?.customer_experience + ""}
+                    valueArr={values}
+                  />
+                </Center>
+              </FormControl>
+              {entry?.entry_other === "" ? (
+                <>
+                  <Text color="brand.200">Other comments: </Text>
+                  <Text bgColor="#FFF" p={2} borderRadius="md">
+                    {entry?.other}
+                  </Text>
+                </>
+              ) : null}
+            </Stack>
           </Stack>
         </>
       )}

@@ -1,10 +1,19 @@
 import PageLayout from "../components/PageLayout";
-import { Box, Stack, Text, Icon, Tag, Center, Select } from "@chakra-ui/react";
+import {
+  Flex,
+  Stack,
+  Text,
+  Icon,
+  IconButton,
+  Tag,
+  Center,
+  Select,
+} from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { DiaryContext } from "../context/DiaryContext";
 import { IoAddOutline } from "react-icons/io5";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
-import { IoWineSharp, IoRemoveCircleOutline } from "react-icons/io5";
+import { IoWineSharp, IoTrashOutline } from "react-icons/io5";
 import { UserContext } from "../context/UserContext";
 import { EntryContext } from "../context/EntryContext";
 import { useRouter } from "next/router";
@@ -15,6 +24,20 @@ export default function diary() {
   const { handleDeleteEntry } = useContext(EntryContext);
   const [genreId, setGenreId] = useState(0);
   const router = useRouter();
+
+  const foodGenres = [
+    { value: 1, name: "Italian" },
+    { value: 2, name: "Asian" },
+    { value: 3, name: "Breakfast" },
+    { value: 4, name: "Mexican" },
+    { value: 5, name: "Burgers" },
+    { value: 6, name: "Sandwiches" },
+    { value: 7, name: "Seafood" },
+    { value: 8, name: "Steakhouse" },
+    { value: 9, name: "Vegetarian" },
+    { value: 10, name: "Vegan" },
+    { value: 11, name: "Other" },
+  ];
 
   return (
     <>
@@ -28,26 +51,21 @@ export default function diary() {
           onChange={(e) => setGenreId(e.target.value)}
           position="fixed"
           top={24}
-          maxW={["xs", "md", "md"]}
+          px={1}
+          maxW={["xs", "md", null]}
         >
-          <option value={1}>Italian</option>
-          <option value={2}>Asian</option>
-          <option value={3}>Breakfast</option>
-          <option value={4}>Mexican</option>
-          <option value={5}>Burgers</option>
-          <option value={6}>Sandwiches</option>
-          <option value={7}>Seafood</option>
-          <option value={8}>Steakhouse</option>
-          <option value={9}>Vegetarian</option>
-          <option value={10}>Vegan</option>
-          <option value={11}>Other</option>
+          {foodGenres.map((genre, index) => (
+            <option value={genre.value} key={index}>
+              {genre.name}
+            </option>
+          ))}
         </Select>
       </Center>
       {diary?.filter((entry) => {
         if (!genreId) {
           return true;
         }
-        return +entry.genre_id === +genreId;
+        return Number(entry.genre_id) === Number(genreId);
       }).length > 0 ? (
         <Center>
           <Stack
@@ -55,7 +73,7 @@ export default function diary() {
             align-items="center"
             margin="0 auto"
             my={8}
-            mt={[40, 28, 28]}
+            mt={[40, 28, null]}
             mx={8}
             spacing={8}
           >
@@ -64,14 +82,14 @@ export default function diary() {
                 if (!genreId) {
                   return true;
                 }
-                return +entry.genre_id === +genreId;
+                return Number(entry.genre_id) === Number(genreId);
               })
               .map((entry, index) => {
                 return (
                   <Stack
                     direction="column"
-                    w={["2xs", "md", "md"]}
-                    bgColor="#F5EDF0"
+                    w={["2xs", "md", null]}
+                    bgColor="brand.50"
                     p={4}
                     borderRadius="md"
                     boxShadow="2px 2px 5px #888888"
@@ -83,37 +101,49 @@ export default function diary() {
                       });
                     }}
                   >
-                    <Icon
-                      as={IoRemoveCircleOutline}
-                      onClick={() => handleDeleteEntry(entry.entry_id)}
-                    />
-
-                    <Stack direction="row" justifyContent="space-between">
-                      {entry.entry_alcohol !== "" ? (
+                    <Flex flex={1} justifyContent="flex-end">
+                      <IconButton
+                        icon={<IoTrashOutline />}
+                        variant="unstyled"
+                        size="lg"
+                        minW={0}
+                        h={4}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          handleDeleteEntry(entry.entry_id);
+                        }}
+                      />
+                    </Flex>
+                    <Stack direction="row">
+                      {entry.entry_alcohol ? (
                         <Icon w={6} h={6} as={IoWineSharp} />
-                      ) : (
-                        <Box></Box>
-                      )}
-                      <Tag
-                        bgColor="#AF7A6D"
-                        color="white"
-                        borderRadius="3xl"
-                        boxShadow="1px 1px 2px #888888"
-                      >
-                        {entry.genre_name}
-                      </Tag>
+                      ) : null}
+                      <Flex flex={1} justifyContent="flex-end">
+                        <Tag
+                          bgColor="brand.100"
+                          color="white"
+                          borderRadius="3xl"
+                          boxShadow="1px 1px 2px #888888"
+                        >
+                          {entry.genre_name}
+                        </Tag>
+                      </Flex>
                     </Stack>
                     <Text textAlign="center" py={2}>
                       {entry.restaurant_name}
                     </Text>
-                    <Stack direction="row" justifyContent="space-between">
-                      <Text>{entry.entry_date}</Text>
-                      {entry.bathroom_experience >= 3 &&
-                      entry.customer_experience >= 3 ? (
-                        <Icon w={5} h={5} as={FaRegThumbsUp} />
-                      ) : (
-                        <Icon w={5} h={5} as={FaRegThumbsDown} />
-                      )}
+                    <Stack direction="row">
+                      <Flex flex={1}>
+                        <Text>{entry.entry_date}</Text>
+                      </Flex>
+                      <Flex flex={1} justifyContent="flex-end">
+                        {entry.bathroom_experience >= 3 &&
+                        entry.customer_experience >= 3 ? (
+                          <Icon w={5} h={5} as={FaRegThumbsUp} />
+                        ) : (
+                          <Icon w={5} h={5} as={FaRegThumbsDown} />
+                        )}
+                      </Flex>
                     </Stack>
                   </Stack>
                 );
@@ -121,7 +151,7 @@ export default function diary() {
           </Stack>
         </Center>
       ) : (
-        <Text textAlign="center" pt={[60, 36, 36]} color="gray.400">
+        <Text textAlign="center" pt={[60, 36, null]} color="gray.400">
           No entries to show.
           <Text>
             (Click <Icon as={IoAddOutline} /> to add new entry.)

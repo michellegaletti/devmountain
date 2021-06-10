@@ -7,6 +7,12 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const router = useRouter();
+  const setStoredUser = (res) => {
+    localStorage.setItem("userId", res.data.user_id);
+    localStorage.setItem("username", res.data.email);
+    setUser(res.data);
+    router.push("/diary");
+  };
   useEffect(() => {
     const user_id = localStorage.getItem("userId");
     const email = localStorage.getItem("username");
@@ -18,10 +24,7 @@ export const UserProvider = ({ children }) => {
     axios
       .post("http://localhost:3333/auth/register", { email, password })
       .then((res) => {
-        localStorage.setItem("userId", res.data.user_id);
-        localStorage.setItem("username", res.data.email);
-        setUser(res.data);
-        router.push("/diary");
+        setStoredUser(res);
       })
       .catch((err) => console.log(err));
   };
@@ -29,10 +32,7 @@ export const UserProvider = ({ children }) => {
     axios
       .post("http://localhost:3333/auth/login", { email, password })
       .then((res) => {
-        localStorage.setItem("userId", res.data.user_id);
-        localStorage.setItem("username", res.data.email);
-        setUser(res.data);
-        router.push("/diary");
+        setStoredUser(res);
       })
       .catch((err) => console.log(err));
   };
@@ -47,16 +47,6 @@ export const UserProvider = ({ children }) => {
       })
       .catch((err) => console.log(err));
   };
-  const handleGetUser = () => {
-    axios
-      .get(`http://localhost:3333/auth/getUser/${user.user_id}`)
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
     <UserContext.Provider
@@ -66,7 +56,6 @@ export const UserProvider = ({ children }) => {
         handleRegister,
         handleLogin,
         handleLogout,
-        handleGetUser,
       }}
     >
       {children}

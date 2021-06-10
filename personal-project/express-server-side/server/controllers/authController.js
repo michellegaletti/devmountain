@@ -11,7 +11,6 @@ module.exports = {
     }
     const hash = bcrypt.hashSync(password);
     const [user] = await db.auth.register_user(email, hash);
-    // Make a way to get the users diary entries here
     delete user.password;
     req.session.user = user;
     return res.status(200).send(req.session.user);
@@ -36,14 +35,5 @@ module.exports = {
   // Destroy the session if user logs out
   logout: (req, res) => {
     res.sendStatus(200);
-  },
-  //Get the user if they are still signed in and you reload the page
-  getUser: (req, res) => {
-    const { userId } = req.params;
-    console.log("user is: ", userId);
-    if (!userId) {
-      return res.status(511).send("User not logged in.");
-    }
-    res.status(200).send(userId);
   },
 };

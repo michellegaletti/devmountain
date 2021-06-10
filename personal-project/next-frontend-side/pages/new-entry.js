@@ -1,19 +1,20 @@
 import { useState, useContext } from "react";
 import { EntryContext } from "../context/EntryContext";
 import PageLayout from "../components/PageLayout";
+import RadioComponent from "../components/RadioComponent";
 import {
   InputGroup,
   Input,
   InputLeftElement,
   Select,
   Text,
-  RadioGroup,
   Stack,
-  Radio,
   Button,
   Icon,
   Center,
   Box,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import {
   IoRestaurantOutline,
@@ -22,6 +23,7 @@ import {
   IoArrowBackOutline,
 } from "react-icons/io5";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function newEntry() {
   const [restaurantName, setRestaurantName] = useState("");
@@ -29,32 +31,47 @@ export default function newEntry() {
   const [genreId, setGenreId] = useState(0);
   const [entryMeal, setEntryMeal] = useState("");
   const [entryDrink, setEntryDrink] = useState("");
-  const [bathroomValue, setBathroomValue] = useState(3);
-  const [customerValue, setCustomerValue] = useState(3);
+  const [bathroomValue, setBathroomValue] = useState("3");
+  const [customerValue, setCustomerValue] = useState("3");
   const [otherComments, setOtherComments] = useState("");
   const { handleAddEntry } = useContext(EntryContext);
-
-  const router = useRouter();
+  const values = ["1", "2", "3", "4", "5"];
+  const foodGenres = [
+    { value: 1, name: "Italian" },
+    { value: 2, name: "Asian" },
+    { value: 3, name: "Breakfast" },
+    { value: 4, name: "Mexican" },
+    { value: 5, name: "Burgers" },
+    { value: 6, name: "Sandwiches" },
+    { value: 7, name: "Seafood" },
+    { value: 8, name: "Steakhouse" },
+    { value: 9, name: "Vegetarian" },
+    { value: 10, name: "Vegan" },
+    { value: 11, name: "Other" },
+  ];
 
   return (
     <Box maxW="100%">
       <PageLayout />
-      <Icon
-        as={IoArrowBackOutline}
-        onClick={() => router.push("/diary")}
-        mt={[24, 4, 4]}
-        ml={[8, 8, 52, 72, 96]}
-        w={6}
-        h={6}
-        color="#420039"
-      />
+      <Link href="/diary">
+        <a>
+          <Icon
+            as={IoArrowBackOutline}
+            mt={[24, 4, null]}
+            ml={[8, 8, 52, 72, 96]}
+            w={6}
+            h={6}
+            color="brand.200"
+          />
+        </a>
+      </Link>
       <Text textAlign="center">New Entry</Text>
       <Stack
         direction="column"
-        maxW={["75%", "50%", "50%"]}
+        maxW={["75%", null, "50%"]}
         margin="0 auto"
         marginTop={8}
-        spacing={4}
+        spacing={3}
       >
         <InputGroup size="md">
           <Input
@@ -85,17 +102,11 @@ export default function newEntry() {
           value={genreId}
           onChange={(e) => setGenreId(e.target.value)}
         >
-          <option value={1}>Italian</option>
-          <option value={2}>Asian</option>
-          <option value={3}>Breakfast</option>
-          <option value={4}>Mexican</option>
-          <option value={5}>Burgers</option>
-          <option value={6}>Sandwiches</option>
-          <option value={7}>Seafood</option>
-          <option value={8}>Steakhouse</option>
-          <option value={9}>Vegetarian</option>
-          <option value={10}>Vegan</option>
-          <option value={11}>Other</option>
+          {foodGenres.map((genre, index) => (
+            <option value={genre.value} key={index}>
+              {genre.name}
+            </option>
+          ))}
         </Select>
         <InputGroup size="md">
           <InputLeftElement
@@ -123,55 +134,34 @@ export default function newEntry() {
             onChange={(e) => setEntryDrink(e.target.value)}
           />
         </InputGroup>
-        <Stack direction="column">
+        <FormControl as="fieldset">
           <Center>
-            <Text>Bathroom experience: </Text>
+            <FormLabel as="legend" margin="0 auto" pb={4}>
+              Bathroom experience:
+            </FormLabel>
           </Center>
           <Center>
-            <RadioGroup onChange={setBathroomValue} value={bathroomValue}>
-              <Stack direction="row" spacing={8}>
-                <Radio value={1} colorScheme="red" />
-                <Radio value={2} colorScheme="red" />
-                <Radio value={3} colorScheme="red" />
-                <Radio value={4} colorScheme="red" />
-                <Radio value={5} colorScheme="red" />
-              </Stack>
-            </RadioGroup>
+            <RadioComponent
+              value={bathroomValue}
+              onChange={setBathroomValue}
+              valueArr={values}
+            />
+          </Center>
+        </FormControl>
+        <FormControl as="fieldset">
+          <Center>
+            <FormLabel as="legend" margin="0 auto" pb={4}>
+              Customer experience:
+            </FormLabel>
           </Center>
           <Center>
-            <Text minW={52} textAlign="center">
-              1
-            </Text>
-            <Text minW={52} textAlign="center">
-              5
-            </Text>
+            <RadioComponent
+              value={customerValue}
+              onChange={setCustomerValue}
+              valueArr={values}
+            />
           </Center>
-        </Stack>
-
-        <Stack direction="column">
-          <Center>
-            <Text>Customer experience: </Text>
-          </Center>
-          <Center>
-            <RadioGroup onChange={setCustomerValue} value={customerValue}>
-              <Stack direction="row" spacing={8}>
-                <Radio value={1} colorScheme="red" />
-                <Radio value={2} colorScheme="red" />
-                <Radio value={3} colorScheme="red" />
-                <Radio value={4} colorScheme="red" />
-                <Radio value={5} colorScheme="red" />
-              </Stack>
-            </RadioGroup>
-          </Center>
-          <Center>
-            <Text minW={52} textAlign="center">
-              1
-            </Text>
-            <Text minW={52} textAlign="center">
-              5
-            </Text>
-          </Center>
-        </Stack>
+        </FormControl>
         <InputGroup size="md">
           <Input
             placeholder="other comments..."
@@ -185,7 +175,7 @@ export default function newEntry() {
       <Center my={8}>
         <Button
           w={36}
-          bgColor="#AF7A6D"
+          bgColor="brand.100"
           color="white"
           borderRadius="3xl"
           onClick={() => {
@@ -194,8 +184,8 @@ export default function newEntry() {
               entryDate,
               entryMeal,
               entryDrink,
-              bathroomValue,
-              customerValue,
+              Number(bathroomValue),
+              Number(customerValue),
               otherComments,
               genreId
             );

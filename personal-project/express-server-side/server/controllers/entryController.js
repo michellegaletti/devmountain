@@ -25,19 +25,17 @@ module.exports = {
       other,
       genre_id,
     } = req.body;
-    if (!userId) {
-      return res.status(511).send("User not logged in.");
-    }
+    console.log(req.body);
     db.entry
       .add_to_diary(
         restaurant_name,
-        entry_date,
-        entry_meal,
-        entry_alcohol,
+        entry_date || "",
+        entry_meal || "",
+        entry_alcohol || "",
         bathroom_experience,
         customer_experience,
-        other,
-        genre_id,
+        other || "",
+        genre_id || 11,
         userId
       )
       .then((diaryEntry) => {
@@ -52,10 +50,6 @@ module.exports = {
   deleteEntry: (req, res) => {
     const db = req.app.get("db");
     const { entry_id, user_id } = req.query;
-    if (!user_id) {
-      return res.status(511).send("User not logged in.");
-    }
-    console.log(req.query);
     db.entry
       .delete_entry_from_diary(entry_id, user_id)
       .then((diaryEntry) => {
@@ -80,9 +74,6 @@ module.exports = {
     console.log(req.body);
     const { userId } = req.params;
     console.log(userId);
-    if (!userId) {
-      return res.status(511).send("User not logged in.");
-    }
     db.entry
       .edit_entry(
         entry_meal,

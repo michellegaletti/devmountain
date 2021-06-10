@@ -4,6 +4,7 @@ const express = require("express");
 const massive = require("massive");
 const session = require("express-session");
 const cors = require("cors");
+const middleware = require("./middleware/middleware");
 
 const { CONNECTION_STRING, SESSION_SECRET, SERVER_PORT } = process.env;
 
@@ -42,18 +43,23 @@ massive({
   })
   .catch((err) => console.log(err));
 
+//Middleware
+
 //Endpoints
 //Auth
 app.post("/auth/register", authCtrl.register);
 app.post("/auth/login", authCtrl.login);
 app.get("/auth/logout", authCtrl.logout);
-app.get("/auth/getUser/:userId", authCtrl.getUser);
 
 //Entry
 app.get("/entry/getEntry/:id", entryCtrl.getEntry);
-app.post("/entry/addToDiary/:userId", entryCtrl.addToDiary);
+app.post("/entry/addToDiary/:userId", middleware.auth, entryCtrl.addToDiary);
 app.delete("/entry/deleteEntry", entryCtrl.deleteEntry);
-app.put("/entry/editEntry/:userId", entryCtrl.editEntry);
+app.put("/entry/editEntry/:userId", middleware.auth, entryCtrl.editEntry);
 
 //Diary
-app.get("/diary/getAllEntries/:userId", diaryCtrl.getAllEntries);
+app.get(
+  "/diary/getAllEntries/:userId",
+  middleware.auth,
+  diaryCtrl.getAllEntries
+);

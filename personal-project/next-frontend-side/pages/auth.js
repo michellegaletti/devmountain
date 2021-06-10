@@ -10,6 +10,7 @@ import {
   Center,
   Text,
   Icon,
+  IconButton,
   InputRightElement,
 } from "@chakra-ui/react";
 import { AiOutlineUser } from "react-icons/ai";
@@ -17,27 +18,27 @@ import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { LockIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 
-const auth = (props) => {
+const auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [show, setShow] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { handleLogin, handleRegister } = useContext(UserContext);
   const router = useRouter();
 
   return (
-    <Center maxW="100%" minH="100vh" bgColor={["#F5EDF0", "#F5EDF0", "#FFF"]}>
+    <Center maxW="100%" h="100vh" bgColor={["brand.50", "#FFF", null]}>
       <Box
-        maxW={["100%", "lg", "lg"]}
-        maxH="lg"
-        borderWidth={[0, "1px", "1px"]}
+        maxW={["100%", "lg", null]}
+        h="lg"
+        borderWidth={[0, "1px", null]}
         borderRadius="md"
         pb={36}
         px={16}
         borderWidth={0}
-        bgColor={["transparent", "transparent", "#F5EDF0"]}
+        bgColor={["transparent", "brand.50", null]}
       >
         <Center>
-          <Text py={12} fontSize="4xl" fontWeight="bold" color="#420039">
+          <Text py={12} fontSize="4xl" fontWeight="bold" color="brand.200">
             Yumary
           </Text>
         </Center>
@@ -71,17 +72,19 @@ const auth = (props) => {
                 bgColor="white"
                 isRequired
                 placeholder="password"
-                type={show ? "text" : "password"}
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <InputRightElement>
-                <Icon
-                  w={5}
-                  h={5}
-                  color="#420039"
-                  onClick={() => setShow(!show)}
-                  as={show ? IoEyeOutline : IoEyeOffOutline}
+                <IconButton
+                  variant="unstyled"
+                  color="brand.200"
+                  margin="0 auto"
+                  size="lg"
+                  minW={0}
+                  onClick={() => setShowPassword(!showPassword)}
+                  icon={showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
                 />
               </InputRightElement>
             </InputGroup>
@@ -91,7 +94,7 @@ const auth = (props) => {
           <Stack spacing={4} my={3}>
             <Button
               w={36}
-              bgColor="#AF7A6D"
+              bgColor="brand.100"
               color="white"
               borderRadius="3xl"
               onClick={() => handleLogin(email, password)}
@@ -99,13 +102,13 @@ const auth = (props) => {
               Login
             </Button>
             <Center>
-              <Text fontWeight="medium" color="#420039">
+              <Text fontWeight="medium" color="brand.200">
                 New user?
               </Text>
             </Center>
             <Button
               w={36}
-              bgColor="#AF7A6D"
+              bgColor="brand.100"
               color="white"
               borderRadius="3xl"
               onClick={() => {
