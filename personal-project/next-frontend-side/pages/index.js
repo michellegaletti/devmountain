@@ -15,6 +15,7 @@ export default function Home() {
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         ></meta>
+        <link rel="tabicon" href="../public/favicon.ico" />
       </Head>
       <PageLayout />
     </div>
